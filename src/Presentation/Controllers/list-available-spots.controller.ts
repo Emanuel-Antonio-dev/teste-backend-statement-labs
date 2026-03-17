@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody, ApiBearerAuth} from '@nestjs/swagger';
 import { ListAvailableSpotsUseCase } from "../../Application/useCases/list-available-spots.usecase";
+import { PublicRoute } from "src/Auth/Decorators/public.decorator";
 
 @ApiTags("Parking")
 @ApiBearerAuth("accessToken")

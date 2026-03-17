@@ -39,6 +39,7 @@ ADMIN_USERNAME="@@system_admin.2026"
 POSTGRES_USER=seu_user
 POSTGRES_PASSWORD=sua_pass
 POSTGRES_DB="db_parking_api"
+POSTGRES_DB_TEST="db_parking_api_test"
 ```
 ---
 
@@ -55,7 +56,9 @@ docker-compose up -d
 ## Rodar migrations
 
 ```bash
-npx prisma migrate dev
+    alterar o DATABASE_URL no arquivo .env selecionando qual DATABASE_URL irá usar(teste, normal), apenas retire o "#" da seleção
+    npx prisma migrate dev
+    npx prisma generate
 ```
 
 ---

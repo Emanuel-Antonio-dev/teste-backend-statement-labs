@@ -18,7 +18,7 @@ async function adminSeed() {
         create: { ...datas }
     })
 
-    console.log("Admin seed concluído")
+    console.log("Admin registrado, seed terminado")
 }
 async function spotsSeed()
 {
@@ -35,7 +35,7 @@ async function spotsSeed()
         data:spotsCreated
     })
 
-    console.log("Seed terminado.")
+    console.log("Vagas registradas, seed terminado.")
 
 }
 async function mainSeed()
