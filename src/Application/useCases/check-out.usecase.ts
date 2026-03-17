@@ -24,9 +24,12 @@ class CheckoutUseCase {
         ? await this.repository.findTicketById(datas.id_ticket)
         : await this.repository.findActiveTicketByPlate(datas.plate!);
       if (!ticketData) {
-        throw new NotFoundException("Ticket não encontrado ou já finalizado");
+        throw new NotFoundException("Ticket não encontrado");
       }
-
+      if(ticketData.check_out_time)
+      {
+        throw new BadRequestException("Ticket já finalizado")
+      }
       const ticket = new ParkingTicket(
         ticketData.id,
         ticketData.car_plate,
