@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model admin{
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  password_hash String   @db.Text
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("tbl_admin")
+}
+model ParkingSpot{
+  id Int @id @default(autoincrement())
+  spot_status PARKINGSPOTSTATUS @default(LIVRE)
+  spot_number    Int @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  tickets     ParkingTicket[]
+  @@index([spot_status])
+  @@map("tbl_parking_spots")
+}
+model ParkingTicket{
+  id Int @id @default(autoincrement())
+  car_plate String
+  check_in_time DateTime @default(now())
+  check_out_time DateTime?
+  total_price Int?
+  id_spot_fk   Int
+  spot      ParkingSpot @relation(fields: [id_spot_fk], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  @@map("tbl_parking_tickets")
+}
+enum PARKINGSPOTSTATUS {
+  LIVRE
+  OCUPADO
+}
