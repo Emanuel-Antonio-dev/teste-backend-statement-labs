@@ -128,7 +128,7 @@ class PrismaParkingRepositories implements IParkingRepositories {
   async listActiveTickets(): Promise<any[]> {
 
     return await this.prisma.parkingTicket.findMany({
-      where: { check_out_time: null },
+      where: { check_out_time: null,spot:{spot_status:"OCUPADO"}},
       include: {
         spot: {
           select: {

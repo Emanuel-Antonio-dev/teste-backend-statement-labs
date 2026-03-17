@@ -23,7 +23,6 @@ class CheckoutUseCase {
       const ticketData = datas.id_ticket
         ? await this.repository.findTicketById(datas.id_ticket)
         : await this.repository.findActiveTicketByPlate(datas.plate!);
-
       if (!ticketData) {
         throw new NotFoundException("Ticket não encontrado ou já finalizado");
       }
@@ -45,6 +44,7 @@ class CheckoutUseCase {
 
       await this.repository.closeTicket(ticket.id, totalPrice);
       ticket.closeTicket(totalPrice);
+      await this.repository.closeTicket(ticket.id, totalPrice)
 
       const spotData = await this.repository.findSpotById(ticket.id_spot_fk);
       if (!spotData) throw new NotFoundException("Vaga não encontrada");
