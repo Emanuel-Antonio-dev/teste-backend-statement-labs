@@ -30,7 +30,8 @@ class CheckoutUseCase {
       {
         throw new BadRequestException("Ticket já finalizado")
       }
-      const ticket = new ParkingTicket(
+ 
+           const ticket = new ParkingTicket(
         ticketData.id,
         ticketData.car_plate,
         ticketData.id_spot_fk,
@@ -38,10 +39,9 @@ class CheckoutUseCase {
         ticketData.check_out_time,
         ticketData.total_price
       );
-
       const now = new Date();
-      const minutes = Math.ceil((now.getTime() - ticket.check_in_time.getTime()) / (1000 * 60));
-      const hours = Math.ceil(minutes / 60);
+      const minutes = now.getTime() - ticket.check_in_time.getTime();
+      const hours = minutes/(1000 * 60 * 60);
 
       const totalPrice = this.tariffService.calculate(hours);
 
@@ -60,7 +60,16 @@ class CheckoutUseCase {
         success: true,
         statusCode: 200,
         message: "Checkout realizado com sucesso",
-        datas: ticket
+        datas: {
+          ticket:{
+            id: ticket.id,
+            car_plate: ticket.car_plate,
+            id_spot_fk: ticket.id_spot_fk,
+            check_in_time: ticket.check_in_time,
+            check_out_time: ticket.check_out_time,
+            total_price: Math.round(ticket.total_price!)
+          },
+        }
       };
 
     } catch (error: any) {
