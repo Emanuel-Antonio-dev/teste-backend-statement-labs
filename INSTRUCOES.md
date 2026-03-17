@@ -48,8 +48,7 @@ POSTGRES_DB="db_parking_api"
 docker-compose up -d
 ```
 
-> Isso irá subir um container PostgreSQL na porta 5432 e a app na porta 3002 (o endereço fica: http://localhost:3002/api.parking/v1
-)
+> Isso irá subir um container PostgreSQL na porta 5434
 
 ---
 
@@ -69,7 +68,7 @@ pnpm db:seed
 
 ---
 
-## Iniciar aplicação sem o Docker
+## Iniciar aplicação
 
 ```bash
 pnpm start:dev
